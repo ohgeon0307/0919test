@@ -34,7 +34,7 @@
 			<option value="content" <c:if test="${param.searchType == 'content'}">selected</c:if>>내용</option>
 		</select>
 		<input type="text" name="keyword" value="${param.keyword}">
-		<button>검색</button>
+		<button>검색입니다</button>
 	</form>
 <%-- 	 <table border="1">
 	<%
