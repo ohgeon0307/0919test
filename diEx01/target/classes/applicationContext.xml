@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="a" class="diEx01.A">
+		<!-- A a = new A(); 와 같은 구문이다. -->
+		<property name="data1" value="dataOne^^_ioc" />
+		<property name="data2" value="dataTwo!!_ioc" />
+		<!-- setter를 호출해주는 태그이다. -->
+
+	</bean>
+
+	<bean id="a2" class="diEx01.A">
+		<!-- A a = new A(); 와 같은 구문이다. -->
+		<property name="data1" value="dataOne^^_ioc_2" />
+		<property name="data2" value="dataTwo!!_ioc_2" />
+		<!-- setter를 호출해주는 태그이다. -->
+
+	</bean>
+
+	<bean id="b" class="diEx01.B">
+		<property name="a"> <!-- B.java에 있는 setter의 a -->
+			<ref bean="a" /> <!-- xml 에 선언되어있는 A(id) -->
+		</property>
+	</bean>
+
+	<bean id="iocC" class="diEx01.C">
+		<!-- 생성자가 없기때문에 매개변수 값을 넣어줘야한다 -->
+		<constructor-arg>
+			<ref bean="a2" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="math" class="diEx01.Math">
+		<property name="mathScore" value="90" />
+	</bean>
+	
+	<bean id="math2" class="diEx01.Math">
+		<property name="mathScore" value="1111" />
+	</bean>
+
+	<bean id="eng" class="diEx01.Eng">
+		<property name="engScore" value="80" />
+	</bean>
+
+	<bean id="kor" class="diEx01.Kor">
+		<property name="korScore" value="88" />
+	</bean>
+
+	<bean id="student" class="diEx01.Student">
+		<property name="name" value="하이" />
+		<!-- property -> setter 주입-->
+		<!-- ref -> 해당 객체의 이름(bean id)에서 
+		객체의 값을 가져오는 역할. -->
+		<constructor-arg>
+			<ref bean="math"></ref>
+			<!-- ref(참조) 매개변수가 있는 생성자이기 때문에
+			math에 들어가야 한다고 한다. -->
+		</constructor-arg>
+		<!-- 생성자 주입(constructor) -->
+		<!-- ioc는 ioc끼리만 주입가능하다.! -->
+		<property name="eng">
+			<ref bean="eng" />
+		</property>
+		<property name="kor">
+			<ref bean="kor" />
+		</property>
+	</bean>
+</beans>
